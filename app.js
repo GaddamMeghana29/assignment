@@ -1,4 +1,5 @@
 const sequelize = require("./config.js");
+const Employee = require("./models/employee");
 
 sequelize
   .authenticate()
