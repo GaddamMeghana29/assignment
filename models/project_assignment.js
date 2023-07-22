@@ -1,8 +1,7 @@
 const sequelize = require("../config");
 const { DataTypes, Model } = require("sequelize");
- const Employee = require("./employee");
- const Project = require("./project");
- const Role = require("./role");
+const Employee = require("./employee");
+const Project = require("./project");
 
 
 class ProjectAssignment extends Model {}
@@ -29,16 +28,13 @@ ProjectAssignment.init(
       type: DataTypes.INTEGER,
       references: {
         model: Project,
-        key: "project_id", 
-      },
-    },
-    RoleId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: Role,
-        key: "role_id", 
+        key: "project_id",
       }
     },
+    role_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   },
   {
     sequelize,
