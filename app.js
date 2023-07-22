@@ -2,6 +2,11 @@ const sequelize = require("./config.js");
 
   const nconf = require("nconf");
   const path = require("path");
+  const Employee = require("./models/employee");
+  const Project = require("./models/project");
+  const Role = require("./models/role");
+  const ProjectAssignment = require("./models/project_assignment");
+  
   nconf.file({ file: path.join(__dirname, "config.json") });
  
 
