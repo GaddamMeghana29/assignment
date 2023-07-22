@@ -1,5 +1,16 @@
 const sequelize = require("./config.js");
-const Employee = require("./models/employee");
+
+  const nconf = require("nconf");
+  const path = require("path");
+  nconf.file({ file: path.join(__dirname, "config.json") });
+ 
+
+ const DB_NAME = nconf.get("DB_NAME");
+ const DB_USERNAME = nconf.get("DB_USERNAME");
+ const DB_PASSWORD = nconf.get("DB_PASSWORD");
+ const DB_HOST = nconf.get("DB_HOST");
+ const DB_DIALECT = nconf.get("DB_DIALECT");
+ const DB_logging = nconf.get("logging");
 
 sequelize
   .authenticate()
