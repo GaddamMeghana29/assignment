@@ -3,7 +3,6 @@ const { DataTypes, Model } = require("sequelize");
 const Employee = require("./employee");
 const Project = require("./project");
 
-
 class ProjectAssignment extends Model {}
 
 ProjectAssignment.init(
@@ -16,29 +15,30 @@ ProjectAssignment.init(
     contribution_percentage: {
       type: DataTypes.INTEGER,
     },
-
     EmployeeId: {
       type: DataTypes.STRING,
       references: {
         model: Employee,
-        key: "employee_id",
-      }
+        key: "employee_id", 
+      },
     },
     ProjectId: {
+      
       type: DataTypes.INTEGER,
       references: {
         model: Project,
-        key: "project_id",
-      }
+        key: "project_id", 
+      },
     },
     role_name: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
+    },
   },
   {
     sequelize,
     modelName: "ProjectAssignment",
+    timestamps:false,
   }
 );
 
