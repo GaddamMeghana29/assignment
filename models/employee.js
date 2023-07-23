@@ -1,15 +1,14 @@
 const { DataTypes, Model } = require("sequelize");
-const sequelize = require("../config.js");
+const sequelize = require("../config");
 
 class Employee extends Model {}
 
 Employee.init(
-
   {
     employee_id: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      primaryKey: true,
     },
     name: {
       type: DataTypes.STRING,
@@ -22,13 +21,8 @@ Employee.init(
   },
   {
     sequelize,
-    modelName: "Employee",
+    modelName: "Employee",e
   }
 );
 
 module.exports = Employee;
-
-
-
-  
-
