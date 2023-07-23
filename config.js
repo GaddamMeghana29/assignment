@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize({
-  dialect: "postgres", 
+  dialect: "postgres",
+  logging: false,
 });
 module.exports = sequelize;
