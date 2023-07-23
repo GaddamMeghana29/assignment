@@ -1,3 +1,5 @@
+
+
 const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../config");
 
@@ -15,7 +17,7 @@ Employee.init(
       allowNull: false,
     },
     date_of_joining: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
   },
