@@ -1,15 +1,12 @@
-const Employee = require("./models/Employee");
-const Project = require("./models/Project");
-const ProjectAssignment = require("./models/ProjectAssignment");
-
+const Employee = require("./models/employee");
+const Project = require("./models/project");
+const ProjectAssignment = require("./models/project_assignment");
 
 Employee.belongsToMany(Project, { through: ProjectAssignment });
 Project.belongsToMany(Employee, { through: ProjectAssignment });
 
-
 module.exports = {
   Employee,
   Project,
-  Role,
   ProjectAssignment,
 };
