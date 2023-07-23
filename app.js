@@ -5,7 +5,6 @@ const sequelize = require("./config.js");
   const Employee = require("./models/employee");
   const Project = require("./models/project");
   const ProjectAssignment = require("./models/project_assignment");
-  
   nconf.file({ file: path.join(__dirname, "config.json") });
  
 
@@ -22,7 +21,7 @@ sequelize
     console.log(
       "Connection to the database has been established successfully."
     );
-    await sequelize.sync();
+    await sequelize.sync({force:true});
     console.log("Models have been synchronized with the database.");
   })
   .catch((error) => {
