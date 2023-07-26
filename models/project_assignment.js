@@ -15,19 +15,18 @@ ProjectAssignment.init(
     contribution_percentage: {
       type: DataTypes.INTEGER,
     },
-    EmployeeId: {
+    employee_id: {
       type: DataTypes.STRING,
       references: {
         model: Employee,
-        key: "employee_id", 
+        key: "employee_id",
       },
     },
-    ProjectId: {
-      
+    project_id: {
       type: DataTypes.INTEGER,
       references: {
         model: Project,
-        key: "project_id", 
+        key: "project_id",
       },
     },
     role_name: {
@@ -39,6 +38,7 @@ ProjectAssignment.init(
     sequelize,
     modelName: "ProjectAssignment",
     timestamps:false,
+    tableName: "ProjectAssignments",
   }
 );
 
