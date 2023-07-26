@@ -108,7 +108,4 @@ async function getTotalContributionPercentage(employeeId, sequelize) {
   }
 }
 
-getEmployeesNotPartOfAnyProject();
-getAllProjectsWithEmployees();
-getProjectDetailsOfEmployee("EMP001");
-getTotalContributionPercentage("EMP001");
+module.exports = {getEmployeesNotPartOfAnyProject,getAllProjectsWithEmployees,getProjectDetailsOfEmployee,getTotalContributionPercentage}
