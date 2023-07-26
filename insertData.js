@@ -1,7 +1,8 @@
+const sequelize = require("./config.js");
 const csv = require("csvtojson");
-const Employee = require("./models/employee"); 
-const Project = require("./models/project"); 
-const ProjectAssignment = require("./models/project_assignment"); 
+const Employee = require("./models/employee");
+const Project = require("./models/project");
+const ProjectAssignment = require("./models/project_assignment");
 
 const employeesCSVFilePath =
   "csv_data/employees.csv";
@@ -20,10 +21,19 @@ const importData = async () => {
     await Project.bulkCreate(projects, { ignoreDuplicates: true });
     await ProjectAssignment.bulkCreate(projectAssignments, { ignoreDuplicates: true });
 
-    console.log("Data import completed successfully.");
+    console.log("Data import completed successfully");
   } catch (error) {
     console.error("Error importing data:", error);
   }
 };
 
-importData();
+async function insertDataFromCSV() {
+  try {
+    await sequelize.sync({ force: true });
+    await importData();
+  } catch (error) {
+    console.error("Unable to connect to the database or insert data:", error);
+  }
+}
+
+module.exports = { insertDataFromCSV };
