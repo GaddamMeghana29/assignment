@@ -1,8 +1,8 @@
-assignment_id,contribution_percentage,EmployeeId,ProjectId,role_name
+assignment_id,contribution_percentage,employee_id,project_id,role_name
 ASSIGN001,30,EMP001,1,Technical Consultant
 ASSIGN002,70,EMP001,2,Technical Lead
-ASSIGN003,50,EMP002,1,Business Analyst
-ASSIGN004,40,EMP002,3,Project Manager
+ASSIGN003,50,EMP001,1,Business Analyst
+ASSIGN004,40,EMP005,3,Project Manager
 ASSIGN005,80,EMP003,1,Software Engineer
 ASSIGN006,20,EMP003,2,Quality Assurance
 ASSIGN007,60,EMP004,3,Database Administrator
