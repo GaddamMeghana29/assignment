@@ -1,6 +1,6 @@
 const sequelize = require("./config.js");
 const { insertDataFromCSV } = require("./insertData.js");
-const { getEmployeesNotPartOfAnyProject} = require("./reports.js")
+const { getEmployeesNotPartOfAnyProject,getAllProjectsWithEmployees,getProjectDetailsOfEmployee,getTotalContributionPercentage} = require("./reports.js");
 
 const nconf = require("nconf");
 const path = require("path");
@@ -22,6 +22,7 @@ sequelize
     console.log("Models have been synchronized with the database.");
     insertDataFromCSV();
     getEmployeesNotPartOfAnyProject(); 
+
     
   })
   .catch((error) => {
