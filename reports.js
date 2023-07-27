@@ -1,22 +1,19 @@
 const { Project, Employee, ProjectAssignment } = require("./associations");
 
-async function getEmployeesNotPartOfAnyProject(sequelize) {
+async function getEmployeesNotPartOfAnyProject() {
   try {
     const employeesNotPartOfAnyProject = await Employee.findAll({
       where: {
-        "$ProjectAssignments.employee_id$": null,
+        "$ProjectAssignments.EmployeeEmployeeId$": null,
       },
-      include: [
-        {
-          model: ProjectAssignment,
-          as: "ProjectAssignments",
-          required: false,
-          attributes: [],
-        },
-      ],
+      include: {
+        model: ProjectAssignment,
+        as: "ProjectAssignments",
+        required: false,
+        attributes: [],
+      },
       attributes: ["employee_id", "name"],
       raw: true,
-      sequelize,
     });
 
     console.log("List of employees who are not part of any project:");
@@ -28,84 +25,81 @@ async function getEmployeesNotPartOfAnyProject(sequelize) {
   }
 }
 
-async function getAllProjectsWithEmployees(sequelize) {
+async function getAllProjectsAndTeamMembers() {
   try {
-    const projectsWithEmployees = await Project.findAll({
+    const projectsWithTeamMembers = await Project.findAll({
       include: [
         {
           model: Employee,
           through: ProjectAssignment,
+          attributes: ["employee_id", "name"],
         },
-      ],
-      sequelize,
-    });
-
-    console.log("List of projects along with their assigned employees:");
-    projectsWithEmployees.forEach((project) => {
-      console.log(`${project.name_of_the_project}:`);
-      project.Employees.forEach((employee) => {
-        console.log(`${employee.name} (Employee ID: ${employee.employee_id})`);
-      });
-      console.log("---------------------");
-    });
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-}
-
-async function getProjectDetailsOfEmployee(employeeId, sequelize) {
-  try {
-    const employee = await Employee.findByPk(employeeId, {
-      include: [
-        {
-          model: Project,
-          through: ProjectAssignment,
-        },
-      ],
-      sequelize,
-    });
-
-    if (employee) {
-      console.log(`Project details of Employee ID ${employeeId}:`);
-      employee.Projects.forEach((project) => {
-        console.log(
-          `${project.name_of_the_project} (Project ID: ${project.project_id})`
-        );
-      });
-    } else {
-      console.log(`Employee with ID ${employeeId} not found.`);
-    }
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-}
-
-async function getTotalContributionPercentage(employeeId, sequelize) {
-  try {
-    const employee = await Employee.findByPk(employeeId, {
-      include: [
         {
           model: ProjectAssignment,
+          attributes: ["assignment_id", "contribution_percentage", "role_name"],
         },
       ],
-      sequelize,
     });
 
-    if (employee) {
+    console.log(
+      "List of all projects along with team members, role information, and % of contribution:"
+    );
+    projectsWithTeamMembers.forEach((project) => {
+      console.log(
+        `${project.name_of_the_project} (Project ID: ${project.project_id}):`
+      );
+      project.Employees.forEach((employee) => {
+        console.log(
+          `  ${employee.name} (Employee ID: ${employee.ProjectAssignment.employee_id})`
+        );
+        const assignment = project.ProjectAssignments.find(
+          (assignment) =>
+            assignment.assignment_id ===
+            employee.ProjectAssignment.assignment_id
+        );
+        console.log(
+          `     Role: ${assignment.role_name}, Contribution: ${assignment.contribution_percentage}%`
+        );
+      });
+      console.log("-------------------------------------------------------");
+    });
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+async function getUnderutilizedEmployees() {
+  try {
+    const underutilizedEmployees = await Employee.findAll({
+      include: {
+        model: ProjectAssignment,
+        attributes: ["contribution_percentage"],
+        include: {
+          model: Project,
+        },
+      },
+    });
+
+    console.log("List of employees who are underutilized:");
+    underutilizedEmployees.forEach((employee) => {
       let totalContribution = 0;
       employee.ProjectAssignments.forEach((assignment) => {
         totalContribution += assignment.contribution_percentage;
       });
 
-      console.log(
-        `Total contribution percentage of Employee ID ${employeeId}: ${totalContribution}%`
-      );
-    } else {
-      console.log(`Employee with ID ${employeeId} not found.`);
-    }
+      if (totalContribution < 100 && totalContribution > 0) {
+        console.log(
+          `${employee.name} (Employee ID: ${employee.employee_id}) - Total Contribution: ${totalContribution}%`
+        );
+      }
+    });
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 }
 
-module.exports = {getEmployeesNotPartOfAnyProject,getAllProjectsWithEmployees,getProjectDetailsOfEmployee,getTotalContributionPercentage}
+module.exports = {
+  getEmployeesNotPartOfAnyProject,
+  getAllProjectsAndTeamMembers,
+  getUnderutilizedEmployees,
+};
