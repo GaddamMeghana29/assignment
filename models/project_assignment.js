@@ -15,20 +15,7 @@ ProjectAssignment.init(
     contribution_percentage: {
       type: DataTypes.INTEGER,
     },
-    employee_id: {
-      type: DataTypes.STRING,
-      references: {
-        model: Employee,
-        key: "employee_id",
-      },
-    },
-    project_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: Project,
-        key: "project_id",
-      },
-    },
+   
     role_name: {
       type: DataTypes.STRING,
       allowNull: false,
