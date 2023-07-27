@@ -17,6 +17,10 @@ const importData = async () => {
       projectAssignmentsCSVFilePath
     );
 
+     await ProjectAssignment.destroy({ truncate: { cascade: false } });
+     await Employee.destroy({ truncate: { cascade: false } });
+     await Project.destroy({ truncate: { cascade: false } });
+
     await Employee.bulkCreate(employees, { ignoreDuplicates: true });
     await Project.bulkCreate(projects, { ignoreDuplicates: true });
     await ProjectAssignment.bulkCreate(projectAssignments, { ignoreDuplicates: true });
@@ -29,7 +33,7 @@ const importData = async () => {
 
 async function insertDataFromCSV() {
   try {
-    await sequelize.sync({ force: true });
+    await sequelize.sync();
     await importData();
   } catch (error) {
     console.error("Unable to connect to the database or insert data:", error);
