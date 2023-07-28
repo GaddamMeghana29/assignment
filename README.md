@@ -15,9 +15,17 @@ This repository contains project focusing on importing data from CSV files into 
 To use this project, follow these steps:
 1. Make sure Node.js installed on your machine. If not, download and install it using https://nodejs.org/en/download
 2. Clone the repository: `git clone https://github.com/GaddamMeghana29/assignment-on-rdbms`
-3. Install the required dependencies using npm: `npm install`.
-4. Install the ncnf using `npm install nconf`.
-5. Run the following command to install commander: `npm install commander`.
+3. Install Sequelize using npm: `npm install --save sequelize`
+4. Install the database driver: `npm install --save pg pg-hstore`. 
+For other databases we can use
+ * `npm install --save mysql2 ` # Mysql <br>
+ * `npm install --save mariadb `# MariaDB<br>
+ * `npm install --save sqlite3` # Sqlite<br>
+ * `npm install --save tedious` # Tedious<br>
+
+5. Install the required dependencies using npm: `npm install`.
+6. Install the ncnf using `npm install nconf`.
+7. Run the following command to install commander: `npm install commander`.
 
 
 ## Usage
