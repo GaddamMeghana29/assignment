@@ -1,0 +1,12 @@
+{
+  "name": "assignment-on-rdbms",
+  "version": "1.0.0",
+  "description": "This repository contains project focusing on importing data from CSV files into a database using the Sequelize ORM. The project involves creating, configuring, and associating Sequelize models representing employees, project assignments, and projects. The script reads data from CSV files and inserts it into the database. It also performs queries to generate various reports based on the imported data.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
