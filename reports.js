@@ -71,21 +71,23 @@ async function getAllProjectsAndTeamMembers() {
 async function getUnderutilizedEmployees() {
   try {
     const underutilizedEmployees = await Employee.findAll({
-      include: {
-        model: ProjectAssignment,
-        attributes: ["contribution_percentage"],
-        include: {
-          model: Project,
+      include: [
+        {
+          model: ProjectAssignment,
+          attributes: ["contribution_percentage"],
+          include: {
+            model: Project,
+          },
         },
-      },
+      ],
     });
 
     console.log("List of employees who are underutilized:");
     underutilizedEmployees.forEach((employee) => {
-      let totalContribution = 0;
-      employee.ProjectAssignments.forEach((assignment) => {
-        totalContribution += assignment.contribution_percentage;
-      });
+      let totalContribution = employee.ProjectAssignments.reduce(
+        (total, assignment) => total + assignment.contribution_percentage,
+        0
+      );
 
       if (totalContribution < 100 && totalContribution > 0) {
         console.log(
